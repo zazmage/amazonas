@@ -70,4 +70,7 @@ export const FormContainer = styled.div`
     border-radius: 4px;
     padding: 20px 26px;
   }
+  img {
+    cursor: pointer;
+  }
 `;
