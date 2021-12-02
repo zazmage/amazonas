@@ -6,10 +6,12 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import ShoppingCart from "./components/ShoppingCart";
 import { AuthProvider } from "./context/AuthContext";
+import { GlobalStyle } from "./styles/styledComp";
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}></Route>

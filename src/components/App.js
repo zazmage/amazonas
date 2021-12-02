@@ -10,7 +10,6 @@ import ProductList from "./ProductList";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useEffect } from "react";
-import { GlobalStyle } from "../styles/styledComp";
 
 function App() {
   /* useEffect(() => {
@@ -22,8 +21,6 @@ function App() {
   }, []); */
   return (
     <div>
-      <GlobalStyle />
-
       <NavBar />
       <ProductList />
     </div>
