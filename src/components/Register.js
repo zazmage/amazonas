@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import { useForm } from "../hooks/useForm";
 import { FormContainer } from "../styles/styledComp";
@@ -7,6 +7,7 @@ import { FormContainer } from "../styles/styledComp";
 const Register = () => {
   const { auth, handleAuth } = useContext(AuthContext);
   const { form, handleChange } = useForm();
+  const navigate = useNavigate();
   return (
     <FormContainer>
       <h2>
@@ -15,7 +16,14 @@ const Register = () => {
       <div>
         <h3>Crear cuenta</h3>
         <p>Formulario</p>
-        <form id="register-form" onSubmit={(e) => handleAuth(e, form)}>
+        <form
+          id="register-form"
+          onSubmit={(e) => handleAuth(e, form, navigate)}
+        >
+          <label>
+            <p>Nombre</p>
+            <input onChange={handleChange} name="name" />
+          </label>
           <label>
             <p>Dirección de correo electrónico</p>
             <input onChange={handleChange} name="email" />
@@ -31,7 +39,6 @@ const Register = () => {
           <button>Continuar</button>
         </form>
       </div>
-      <p>¿Eres nuevo en amazonas?</p>
       <p>
         ¿Ya tienes una cuenta? <Link to="/login">Iniciar sesión</Link>
       </p>

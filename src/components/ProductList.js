@@ -1,11 +1,25 @@
+import { useSelector } from "react-redux";
+import { Spinner } from "../styles/spinnerStyleComp";
+import { ProductListTemp } from "../styles/styledComp";
 import ProductCard from "./ProductCard";
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
+  const { data } = useSelector((state) => state.database);
+
+  console.log(data);
   return (
-    <div>
-      <h2>Soy la lista de los productos</h2>
-      <ProductCard />
-    </div>
+    <ProductListTemp>
+      {data === null ? (
+        <Spinner />
+      ) : (
+        data.map((el) => (
+          <Link key={el.uniqId} to={`/productInfo/${el.productName}`}>
+            <ProductCard props={el} />
+          </Link>
+        ))
+      )}
+    </ProductListTemp>
   );
 };
 

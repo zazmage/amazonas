@@ -1,8 +1,20 @@
-const ProductCard = () => {
+import { ProductCardTemp } from "../styles/styledComp";
+
+const ProductCard = ({
+  props: { image, productRating, productName, retailPrice },
+}) => {
   return (
-    <div>
-      <h2>Soy una carta de producto</h2>
-    </div>
+    <ProductCardTemp>
+      <div className="img-cont">
+        <img src={image[0]} alt="" />
+      </div>
+      <h3>{productName}</h3>
+      <div className="score">
+        <img src="" alt="" />
+        <p>{productRating}</p>
+      </div>
+      <p>{retailPrice}</p>
+    </ProductCardTemp>
   );
 };
 

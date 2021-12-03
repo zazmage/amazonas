@@ -7,18 +7,22 @@ import {
 } from "react-router-dom";
 import NavBar from "./NavBar";
 import ProductList from "./ProductList";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+
 import { useEffect } from "react";
+import { getData } from "../store/slices/database";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  /* useEffect(() => {
-    const obtenerDatos = async () => {
-      const querySnapshot = await getDocs(collection(db, "products"));
-      //console.log(querySnapshot.docs[0].data());
-    };
-    obtenerDatos();
-  }, []); */
+  const { data } = useSelector((state) => state.database);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+
+  console.log(data);
+
   return (
     <div>
       <NavBar />

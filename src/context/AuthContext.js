@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
       .then(({ user }) => {
         setAuth(user.email);
         console.log("Bienvenido " + (user.displayName || user.email));
+        window.alert("Inicio de sesión exitoso");
         navigate("/", {
           replace: true,
         });
@@ -32,17 +33,25 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const registerEmailPassword = ({ email, password, secPassword }) => {
+  const registerEmailPassword = (
+    { name, email, password, secPassword },
+    navigate
+  ) => {
     console.log(password, secPassword);
     if (password === secPassword) {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, email, password)
         .then(async ({ user }) => {
-          await updateProfile(auth.currentUser);
+          await updateProfile(auth.currentUser, { displayName: name });
           console.log(user);
+          window.alert("Registro exitoso");
+          navigate("/", {
+            replace: true,
+          });
         })
         .catch((error) => {
           console.log(error);
+          console.log("hay un error");
         });
     } else {
       console.log("Contraseñas distintas");
@@ -72,7 +81,7 @@ const AuthProvider = ({ children }) => {
         loginEmailPassword(form.email, form.password, navigate);
         break;
       case "register-form":
-        registerEmailPassword(form);
+        registerEmailPassword(form, navigate);
         break;
       case "login-google":
         loginGoogle(navigate);

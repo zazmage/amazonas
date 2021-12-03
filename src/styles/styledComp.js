@@ -21,6 +21,7 @@ export const NavigationBar = styled.div`
   flex-flow: row, nowrap;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 18px;
   a {
     text-decoration: none;
     flex-grow: 1;
@@ -72,5 +73,44 @@ export const FormContainer = styled.div`
   }
   img {
     cursor: pointer;
+  }
+`;
+
+export const ProductCardTemp = styled.div`
+  width: 365px;
+  height: 570px;
+  border-bottom: solid #00000030 1px;
+  cursor: pointer;
+  .img-cont {
+    width: 100%;
+    height: 365px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: scale-down;
+    }
+  }
+  .score {
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 400;
+  }
+`;
+
+export const ProductListTemp = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  row-gap: 15px;
+  a {
+    text-decoration: none;
+    &:visited {
+      color: inherit;
+    }
   }
 `;
