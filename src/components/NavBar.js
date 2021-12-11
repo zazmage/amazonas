@@ -1,15 +1,12 @@
 import { NavigationBar } from "../styles/styledComp";
 import searchIcon from "../assets/search.svg";
-import shoppingCartIcon from "../assets/shopping-cart.svg";
-import {
-  Outlet,
-  NavLink,
-  useSearchParams,
-  Link,
-  useLocation,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const NavBar = () => {
+  const { auth, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <NavigationBar>
       <Link to="/">
@@ -21,9 +18,16 @@ const NavBar = () => {
           <img src={searchIcon} alt="search" />
         </div>
       </div>
-      <Link to="/login">
-        <p id="identify-btn">Identifícate</p>
-      </Link>
+      {auth ? (
+        <p id="identify-btn" name="logout" onClick={(e) => logout(navigate)}>
+          Cerrar sesión
+        </p>
+      ) : (
+        <Link to="/login">
+          <p id="identify-btn">Identifícate</p>
+        </Link>
+      )}
+
       <Link to="/shopping">
         <p id="shopping-cart-btn">Carrito</p>
       </Link>

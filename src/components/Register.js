@@ -5,7 +5,7 @@ import { useForm } from "../hooks/useForm";
 import { FormContainer } from "../styles/styledComp";
 
 const Register = () => {
-  const { auth, handleAuth } = useContext(AuthContext);
+  const { handleAuth } = useContext(AuthContext);
   const { form, handleChange } = useForm();
   const navigate = useNavigate();
   return (

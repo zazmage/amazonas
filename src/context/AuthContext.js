@@ -4,23 +4,41 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
+  onAuthStateChanged,
+  signOut,
 } from "@firebase/auth";
 import { createContext, useState } from "react";
 import { authGoogle } from "../firebase/firebaseConfig";
 
 const AuthContext = createContext();
 
-const initialAuth = null;
+// const initialAuth = null;
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(initialAuth);
+  const [auth, setAuth] = useState(null);
+
+  const dameAuth = getAuth();
+  onAuthStateChanged(dameAuth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      //const uid = user.uid;
+      setAuth(user);
+      //console.log(user, uid);
+      // ...
+    } else {
+      // User is signed out
+      setAuth(null);
+      // ...
+    }
+  });
 
   const loginEmailPassword = (email, password, navigate) => {
     const authStatus = getAuth();
     console.log(auth);
     signInWithEmailAndPassword(authStatus, email, password)
       .then(({ user }) => {
-        setAuth(user.email);
+        setAuth(user);
         console.log("Bienvenido " + (user.displayName || user.email));
         window.alert("Inicio de sesión exitoso");
         navigate("/", {
@@ -62,7 +80,7 @@ const AuthProvider = ({ children }) => {
     const auth = getAuth();
     signInWithPopup(auth, authGoogle)
       .then(({ user }) => {
-        setAuth(user.email);
+        setAuth(user);
         console.log("Inicio de sesión exitoso");
         navigate("/", {
           replace: true,
@@ -73,8 +91,20 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const logout = (navigate) => {
+    console.log("Hola");
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        console.log("Sign-out successful");
+      })
+      .catch((error) => {
+        console.log("An error happened.");
+        // An error happened.
+      });
+  };
+
   const handleAuth = (e, form, navigate) => {
-    // console.log(navigate);
     e.preventDefault();
     switch (e.target.id) {
       case "login-form":
@@ -91,7 +121,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const data = { auth, handleAuth };
+  const data = { auth, handleAuth, logout };
 
   return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };

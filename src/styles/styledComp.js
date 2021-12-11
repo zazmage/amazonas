@@ -109,8 +109,66 @@ export const ProductListTemp = styled.div`
   row-gap: 15px;
   a {
     text-decoration: none;
+    color: inherit;
     &:visited {
       color: inherit;
     }
+  }
+`;
+
+export const ProdImgCont = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  .img-list {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 5px;
+    cursor: pointer;
+    img {
+      width: 70px;
+      height: 70px;
+      object-fit: scale-down;
+    }
+  }
+  .img-selected {
+    overflow: hidden;
+    border: solid 1px #00000030;
+    padding: 20px;
+    img {
+      width: 30vw;
+      height: 30vw;
+      object-fit: scale-down;
+      transition: 0.3s;
+      &:hover {
+        transform: scale(1.5);
+      }
+    }
+  }
+`;
+
+export const ProductInfoCont = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: center;
+`;
+
+export const ProductDescCont = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-content: center;
+  width: 50vw;
+  button {
+    background-color: ${colors.secundary};
+    border: none;
+    width: 80%;
+    height: 40px;
+    margin: 0 auto 0 auto;
+    border-radius: 20px;
+    cursor: pointer;
   }
 `;
